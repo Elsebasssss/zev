@@ -1,13 +1,27 @@
-import { productos } from '../data/productos';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 import ProductoCard from './ProductoCard';
 
 function Inicio() {
-  // Filtra automáticamente todos los productos que tengan destacado: true
-  const productosDestacados = productos.filter((p) => p.destacado);
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    const obtenerProductos = async () => {
+      const { data, error } = await supabase
+        .from('productos')
+        .select('*')
+        .eq('destacado', true);
+
+      if (!error) setProductos(data || []);
+      setCargando(false);
+    };
+
+    obtenerProductos();
+  }, []);
 
   return (
     <div className="inicio-container">
-      {/* GANCHO DE TIKTOK */}
       <section className="hero-section">
         <h1 className="hero-title">Lo que viste en TikTok,<br />directo a tu casa.</h1>
         <p className="hero-subtitle">
@@ -15,13 +29,14 @@ function Inicio() {
         </p>
       </section>
 
-      {/* CUADRÍCULA DE DESTACADOS */}
       <section className="productos-section">
         <h2 className="section-title">🔥 Hallazgos Destacados</h2>
         
-        {productosDestacados.length > 0 ? (
+        {cargando ? (
+          <p style={{ textAlign: 'center', color: '#a1a1aa' }}>Cargando productos...</p>
+        ) : productos.length > 0 ? (
           <div className="productos-grid">
-            {productosDestacados.map((prod) => (
+            {productos.map((prod) => (
               <ProductoCard key={prod.id} producto={prod} />
             ))}
           </div>

@@ -10,6 +10,7 @@ import Deportes from './components/Deportes';
 import Ofertas from './components/Ofertas';
 import PoliticaPrivacidad from './components/PoliticaPrivacidad';
 import './App.css';
+import Admin from './components/Admin';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/deportes" element={<Deportes />} />
           <Route path="/ofertas" element={<Ofertas />} />
           <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
 
