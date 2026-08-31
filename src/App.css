@@ -262,8 +262,13 @@ img {
   background-color: #0a0a0a;
   border: 1px solid #1f1f1f;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: hidden; /* Esto recorta cualquier imagen que intente desbordarse */
+  position: relative;
   transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 420px;
 }
 
 .producto-card:hover {
@@ -272,24 +277,41 @@ img {
 }
 
 .producto-img-placeholder {
-  height: 250px;
-  background-color: #141414;
+  height: 200px;
+  width: 100%;
+  background-color: #ffffff; /* Fondo blanco para resaltar productos */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #444444;
-  font-size: 1.1rem;
-  font-weight: bold;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.producto-img-placeholder img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .producto-info {
-  padding: 1.5rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 
 .producto-info h3 {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.35;
   margin: 0 0 0.5rem 0;
   color: #f1f1f1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Corta títulos largos a 2 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .precio {
